@@ -230,6 +230,8 @@ public class Cinchtest
         driver.findElement(By.xpath("//input[@formcontrolname='comment']")).sendKeys("test medication");
 
         driver.findElement(By.xpath("//button[text()='Save']")).click();
+
+        System.out.println("test");
     }
 
     @DataProvider(name = "patientData")
