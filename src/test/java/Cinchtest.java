@@ -232,6 +232,7 @@ public class Cinchtest
         driver.findElement(By.xpath("//button[text()='Save']")).click();
 
         System.out.println("test");
+        System.out.println("test1");
     }
 
     @DataProvider(name = "patientData")
