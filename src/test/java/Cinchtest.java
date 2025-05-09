@@ -70,7 +70,8 @@ public class Cinchtest
         driver.findElement(By.xpath("//input[@formcontrolname='ssn']")).sendKeys(SSN);
         driver.findElement(By.xpath("//input[@formcontrolname='tribalAffiliation']")).sendKeys(TA);
 
-        driver.findElement(By.xpath("//div[@id='vital_card-header']//button[text()='Add']")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//label[text()='Language']/parent::div/following-sibling::div//button")).click();
 
         Thread.sleep(2000);
         List<WebElement> rows = driver.findElements(By.xpath("//table[@class='w-100 table table-bordered']//tbody//tr"));
@@ -81,15 +82,38 @@ public class Cinchtest
                 System.out.println(language);
             }
         }
-        driver.findElement(By.xpath("//div[contains(@class,'modal-content')]//button[text()='Select' and ancestor::div[.//label[text()='Language']]]")).click();
+        driver.findElement(By.xpath("//button[text()='Select']")).click();
         Thread.sleep(2000);
-        driver.findElement(By.xpath("//div[contains(@class,'modal-content')]//button[text()='Select' and ancestor::div[.//label[text()='Race']]]")).click();
+        driver.findElement(By.xpath("//label[text()='Race']/parent::div/following-sibling::div//button")).click();
         Thread.sleep(2000);
-        driver.findElement(By.xpath("//div[contains(@class,'modal-content')]//button[text()='Select' and ancestor::div[.//label[text()='Ethnicity']]]")).click();
+        List<WebElement> rows1 = driver.findElements(By.xpath("//table[@class='w-100 table table-bordered']//tbody//tr"));
+        for (WebElement rowr : rows1) {
+            String race = rowr.findElement(By.xpath("./td[3]")).getText();
+            if (race.startsWith("Au")) {
+                rowr.click();
+                System.out.println(race);
+            }
+        }
+        driver.findElement(By.xpath("//button[text()='Select']")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//label[text()='Ethnicity']/parent::div/following-sibling::div//button")).click();
+        Thread.sleep(2000);
+        List<WebElement> rows2 = driver.findElements(By.xpath("//table[@class='w-100 table table-bordered']//tbody//tr"));
+        for (WebElement rowe : rows2) {
+            String ethnicity = rowe.findElement(By.xpath("./td[3]")).getText();
+            if (ethnicity.startsWith("An")) {
+                rowe.click();
+                System.out.println(ethnicity);
+            }
+        }
+        driver.findElement(By.xpath("//button[text()='Select']")).click();
 
-        driver.findElement(By.xpath("//button[text()='Save' and ancestor::div[.//button[text()=' S.O./G.I. ']]]")).click();
+        driver.findElement(By.xpath("//button[text()=' S.O./G.I. ']")).click();
+        driver.findElement(By.xpath("//table[@class='table table-bordered']/tbody//tr[.//td[text()='ASKU']]//input[@name='sexualOrientationId']")).click();
+        driver.findElement(By.xpath("//table[@class='table table-bordered']/tbody//tr[.//td[text()='ASKU']]//input[@name='genderIdentityId']")).click();
+        driver.findElement(By.xpath("//button[text()='Save']")).click();
 
-        driver.findElement(By.xpath("//button[@type='submit' and ancestor::form]")).click();
+        driver.findElement(By.xpath("//button[@type='submit']")).click();
     }
 
     @Test(priority = 2, dataProvider = "nameData")
@@ -139,9 +163,9 @@ public class Cinchtest
         }
     }
 
-    @Test(priority = 3,enabled = false)
+    @Test(priority = 3)
     public void Vitals() throws InterruptedException {
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         driver.findElement(By.xpath("//div[@id='vital_card-header']/div/div/button[text()='Add']")).click();
         driver.findElement(By.xpath("//input[@formcontrolname='bp1Upper']")).sendKeys("43");
         driver.findElement(By.xpath("//input[@formcontrolname='bp1Lower']")).sendKeys("130");
@@ -169,7 +193,7 @@ public class Cinchtest
         driver.findElement(By.id("saveBtn")).click();
     }
 
-    @Test(priority = 4,enabled = false)
+    @Test(priority = 4)
     public void Allergies() throws InterruptedException {
         Thread.sleep(3000);
         driver.findElement(By.xpath("//div[@id='allergies']//div[contains(@class,'emrcard-header')]//button[text()='Add']")).click();
